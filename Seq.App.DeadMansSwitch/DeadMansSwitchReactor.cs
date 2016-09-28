@@ -15,11 +15,6 @@ namespace Seq.App.DeadMansSwitch
             HelpText = "The number of seconds within which the events must occur to disarm the switch.")]
         public int Timeout { get; set; }
 
-        [SeqAppSetting(
-            DisplayName = "Dead Mans Switch Name",
-            HelpText = "The name of this dead mans switch; the events written back to the stream will be tagged with this value.")]
-        public string DeadMansSwitchName { get; set; }
-
         [SeqAppSetting(DisplayName = "Log level for blown switches",
             HelpText = "Verbose, Debug, Information, Warning, Error, Fatal",
             IsOptional = true)]
@@ -32,7 +27,7 @@ namespace Seq.App.DeadMansSwitch
 
         [SeqAppSetting(DisplayName = "Disable logging of the arming of a switch",
             HelpText = "If selected the arming of the switch won't be logged, only when it blows")]
-        public bool LogArmingOfSwitch { get; set; }
+        public bool DisableLogArmingOfSwitch { get; set; }
 
         [SeqAppSetting(
             DisplayName = "Repeat",
@@ -86,7 +81,7 @@ namespace Seq.App.DeadMansSwitch
             if (!@switch.Armed)
             {
                 @switch.Armed = true;
-                if (LogArmingOfSwitch)
+                if (!DisableLogArmingOfSwitch)
                 {
                     LogMessage($"Switch armed: '{evt.Data.RenderedMessage}'.", ArmedSwitchLogLevel);
                 }
