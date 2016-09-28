@@ -41,7 +41,7 @@ namespace Seq.App.DeadMansSwitch
             base.OnAttached();
             _timer = new Timer(1000);
             _timer.Elapsed += TimerOnElapsed;
-
+            _timer.Start();
             if (string.IsNullOrWhiteSpace(BlownSwitchLogLevel))
             {
                 BlownSwitchLogLevel = "Error";
