@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Seq.App.DeadMansSwitch</id>
+    <version>1.0.0-alpha1</version>
+    <authors>Jan-Pieter Zoutewelle</authors>
+    <owners>Jan-Pieter Zoutewelle</owners>
+    <licenseUrl>https://github.com/janpieterz/Seq.App.DeadMansSwitch/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/janpieterz/Seq.App.DeadMansSwitch</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Writes armed/disarmed events after the specified periods have elapsed for events. Each event starts it's own switch.</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>seq-app seq serilog event</tags>
+    <dependencies>
+      <dependency id="Seq.Apps" version="1.6.4"/>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Seq.App.DeadMansSwitch.dll" target="lib\net45"/>
+  </files>
+</package>
