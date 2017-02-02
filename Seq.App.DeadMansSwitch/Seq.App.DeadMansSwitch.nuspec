@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Seq.App.DeadMansSwitch</id>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <authors>Jan-Pieter Zoutewelle</authors>
     <owners>Jan-Pieter Zoutewelle</owners>
     <licenseUrl>https://github.com/janpieterz/Seq.App.DeadMansSwitch/blob/master/LICENSE</licenseUrl>
