@@ -73,9 +73,11 @@ namespace Seq.App.DeadMansSwitch
 
         public void On(Event<LogEventData> evt)
         {
+            bool newSwitch = false;
             if (!Switches.ContainsKey(evt.Data.RenderedMessage))
             {
                 Switches[evt.Data.RenderedMessage] = new EventSwitch();
+                newSwitch = true;
             }
             EventSwitch @switch = Switches[evt.Data.RenderedMessage];
             if (!@switch.Armed)
@@ -83,7 +85,8 @@ namespace Seq.App.DeadMansSwitch
                 @switch.Armed = true;
                 if (!DisableLogArmingOfSwitch)
                 {
-                    LogMessage($"Switch armed: '{evt.Data.RenderedMessage}'.", ArmedSwitchLogLevel);
+                    var message = $"{(newSwitch ? "New switch" : "Switch")} armed: {evt.Data.RenderedMessage}.";
+                    LogMessage(message, ArmedSwitchLogLevel);
                 }
             }
 
