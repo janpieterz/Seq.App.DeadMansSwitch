@@ -76,7 +76,10 @@ namespace Seq.App.DeadMansSwitch
             bool newSwitch = false;
             if (!Switches.ContainsKey(evt.Data.RenderedMessage))
             {
-                Switches[evt.Data.RenderedMessage] = new EventSwitch();
+                Switches[evt.Data.RenderedMessage] = new EventSwitch()
+                {
+                    Trigger = DateTime.MaxValue
+                };
                 newSwitch = true;
             }
             EventSwitch @switch = Switches[evt.Data.RenderedMessage];
