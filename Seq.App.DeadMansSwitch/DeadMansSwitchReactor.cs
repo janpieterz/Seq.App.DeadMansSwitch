@@ -20,7 +20,7 @@ namespace Seq.App.DeadMansSwitch
             IsOptional = true)]
         public string BlownSwitchLogLevel { get; set; }
 
-        [SeqAppSetting(DisplayName = "Log level for blown switches",
+        [SeqAppSetting(DisplayName = "Log level for armed switches",
             HelpText = "Verbose, Debug, Information, Warning, Error, Fatal",
             IsOptional = true)]
         public string ArmedSwitchLogLevel { get; set; }
