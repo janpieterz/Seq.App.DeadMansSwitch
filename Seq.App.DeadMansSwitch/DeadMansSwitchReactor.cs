@@ -29,6 +29,13 @@ namespace Seq.App.DeadMansSwitch
             HelpText = "If selected the arming of the switch won't be logged, only when it blows")]
         public bool DisableLogArmingOfSwitch { get; set; }
 
+        [SeqAppSetting(DisplayName = "Disable first log of arming of a switch",
+            HelpText = "If selected the arming of the switch won't be logged for the first time")]
+        public bool DisableLogFirstArmingOfSwitch { get; set; }
+
+        [SeqAppSetting(DisplayName = "Use emoticons in messages",
+            HelpText = "Emoticons will be used in the messages")]
+        public bool UseEmoticonsInMessage { get; set; }
         [SeqAppSetting(
             DisplayName = "Repeat",
             HelpText = "Whether or not the timeout should repeat if there are no events. Otherwise, it will only trigger once and wait until next event. Will need each event at least once.")]
@@ -59,7 +66,15 @@ namespace Seq.App.DeadMansSwitch
             var expiredSwitches = Switches.Where(x => x.Value.Trigger < DateTime.Now && x.Value.Armed);
             foreach (KeyValuePair<string, EventSwitch> @switch in expiredSwitches)
             {
-                LogMessage($"Switch blown: '{@switch.Key}'", BlownSwitchLogLevel);
+                if (UseEmoticonsInMessage)
+                {
+                    LogMessage($"🙈 Switch blown: '{@switch.Key}'", BlownSwitchLogLevel);
+                }
+                else
+                {
+                    LogMessage($"Switch blown: '{@switch.Key}'", BlownSwitchLogLevel);
+                }
+                
                 if (Repeat)
                 {
                     @switch.Value.Trigger = DateTime.Now.AddSeconds(Timeout);
@@ -88,8 +103,32 @@ namespace Seq.App.DeadMansSwitch
                 @switch.Armed = true;
                 if (!DisableLogArmingOfSwitch)
                 {
-                    var message = $"{(newSwitch ? "New switch" : "Switch")} armed: {evt.Data.RenderedMessage}.";
-                    LogMessage(message, ArmedSwitchLogLevel);
+                    if (!newSwitch)
+                    {
+                        if (UseEmoticonsInMessage)
+                        {
+                            var message = $"🙌 Switch armed: {evt.Data.RenderedMessage}.";
+                            LogMessage(message, ArmedSwitchLogLevel);
+                        }
+                        else
+                        {
+                            var message = $"Switch armed: {evt.Data.RenderedMessage}.";
+                            LogMessage(message, ArmedSwitchLogLevel);
+                        }
+                    }
+                    else if (!DisableLogFirstArmingOfSwitch)
+                    {
+                        if (UseEmoticonsInMessage)
+                        {
+                            var message = $"🙋 New switch armed: {evt.Data.RenderedMessage}.";
+                            LogMessage(message, ArmedSwitchLogLevel);
+                        }
+                        else
+                        {
+                            var message = $"New switch armed: {evt.Data.RenderedMessage}.";
+                            LogMessage(message, ArmedSwitchLogLevel);
+                        }
+                    }
                 }
             }
 
